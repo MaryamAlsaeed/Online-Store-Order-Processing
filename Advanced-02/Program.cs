@@ -16,6 +16,15 @@
         }
         #endregion
 
+        #region Display Products
+        public static void DisplayProducts(List<Product> products)
+        {
+            foreach (var product in products)
+            {
+                Console.WriteLine($"Name: {product.Name}, Price: {product.Price}, Stock: {product.Stock}");
+            }
+        } 
+        #endregion
         static void Main(string[] args)
         {
             #region Product Catalog
@@ -33,6 +42,8 @@
             new Product { Id=10, Name="Jacket",     Category="Clothing",    Price=120,  Stock=15  },
             };
             #endregion
+
+
 
         }
     }
