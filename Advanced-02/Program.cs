@@ -27,7 +27,8 @@
         }
         #endregion
 
-        #region Short Print reports method
+        #region Print reports method
+        // in main function we will decide wether we need to implement the short report or the detailed one.
         public static void PrintReports(List<Product> products, Action<Product> Printer)
         {
             foreach (Product product in products)
@@ -36,6 +37,7 @@
             }
         }
         #endregion
+ 
         static void Main(string[] args)
         {
             #region Product Catalog
