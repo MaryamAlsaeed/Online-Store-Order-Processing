@@ -21,9 +21,20 @@
         {
             foreach (var product in products)
             {
-                Console.WriteLine($"Name: {product.Name}, Price: {product.Price}, Stock: {product.Stock}");
+                Console.WriteLine($"{product.Name} - ${product.Price} (Stock: {product.Stock})");
             }
-        } 
+            Console.WriteLine();
+        }
+        #endregion
+
+        #region Short Print reports method
+        public static void PrintReports(List<Product> products, Action<Product> Printer)
+        {
+            foreach (Product product in products)
+            {
+                Printer(product);
+            }
+        }
         #endregion
         static void Main(string[] args)
         {
@@ -43,8 +54,24 @@
             };
             #endregion
 
+            #region Search Product by category
+            Console.WriteLine("--Electronics--");
+            var electronics = SearchProducts(catalog, p => p.Category == "Electronics");
+            DisplayProducts(electronics);
 
 
+            Console.WriteLine("--Under $50--");
+            var under50 = SearchProducts(catalog, p => p.Price < 50);
+            DisplayProducts(under50);
+
+            Console.WriteLine("--In Stock--");
+            var inStock = SearchProducts(catalog, p => p.Stock > 0);
+            DisplayProducts(inStock);
+
+            Console.WriteLine("--Clothing under $100--");
+            var clothingUnder100 = SearchProducts(catalog, p => p.Category == "Clothing" && p.Price < 100);
+            DisplayProducts(clothingUnder100);
+            #endregion
         }
     }
 }
