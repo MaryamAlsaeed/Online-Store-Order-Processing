@@ -38,7 +38,6 @@
         }
         #endregion
 
-
         #region Transform Products
         public static List<string> TransformProducts(List<Product> products, Func<Product, string> transformer)
         {
@@ -116,15 +115,25 @@
 
             PrintSpace();
 
+            #region Summary
             Console.WriteLine("--Summary Report--");
             foreach (string s in TransformProducts(catalog, p => $"{p.Name} (${p.Price})"))
                 Console.WriteLine(s);
-            
-            PrintSpace();
+            #endregion
 
+            PrintSpace();
+            #region Print lables
             Console.WriteLine("--Price labels--");
             foreach (string s in TransformProducts(catalog, p => $"{p.Name}: {(p.Price > 100 ? "Expensive!" : "Affordable")}"))
                 Console.WriteLine(s);
+            #endregion
+
+            PrintSpace();
+            #region Low stock Alert
+            Console.WriteLine("--Low-Stock Alert--");
+            foreach (Product product in FilterProduct(catalog, p => p.Stock < 20))
+                Console.WriteLine($"[LOW STOCK] {product.Name}: only {product.Stock} left!");
+            #endregion
         }
     }
 }
