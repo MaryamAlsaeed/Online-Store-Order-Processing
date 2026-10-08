@@ -38,6 +38,8 @@
         }
         #endregion
 
+
+        #region Transform Products
         public static List<string> TransformProducts(List<Product> products, Func<Product, string> transformer)
         {
             List<string> result = new();
@@ -45,8 +47,21 @@
             {
                 result.Add(transformer(product));
             }
-            return result;  
+            return result;
         }
+        #endregion
+        #region Filter products
+        public static List<Product> FilterProduct (List<Product> products, Func<Product, bool> filter)
+        {
+            List<Product> result = new();
+            foreach (Product product in products)
+            {
+                if (filter(product))
+                    result.Add(product);
+            }
+            return result;
+        }
+        #endregion
         public static void PrintSpace()
         {
             Console.WriteLine();
