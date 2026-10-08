@@ -23,7 +23,7 @@
             {
                 Console.WriteLine($"{product.Name} - ${product.Price} (Stock: {product.Stock})");
             }
-            Console.WriteLine();
+            PrintSpace();
         }
         #endregion
 
@@ -37,7 +37,20 @@
             }
         }
         #endregion
- 
+
+        public static List<string> TransformProducts(List<Product> products, Func<Product, string> transformer)
+        {
+            List<string> result = new();
+            foreach (Product product in products)
+            {
+                result.Add(transformer(product));
+            }
+            return result;  
+        }
+        public static void PrintSpace()
+        {
+            Console.WriteLine();
+        }
         static void Main(string[] args)
         {
             #region Product Catalog
@@ -61,7 +74,6 @@
             var electronics = SearchProducts(catalog, p => p.Category == "Electronics");
             DisplayProducts(electronics);
 
-
             Console.WriteLine("--Under $50--");
             var under50 = SearchProducts(catalog, p => p.Price < 50);
             DisplayProducts(under50);
@@ -74,6 +86,30 @@
             var clothingUnder100 = SearchProducts(catalog, p => p.Category == "Clothing" && p.Price < 100);
             DisplayProducts(clothingUnder100);
             #endregion
+
+            #region Short Report
+            Console.WriteLine("--Short Report--");
+            PrintReports(catalog, product => Console.WriteLine($"{product.Name} - ${product.Price}"));
+            #endregion
+
+            PrintSpace();
+
+            #region Detailed Report
+            Console.WriteLine("--Detailed Report--");
+            PrintReports(catalog, product => Console.WriteLine($"[{product.Category}] {product.Name} | Price: ${product.Price} | Stock: {product.Stock}"));
+            #endregion
+
+            PrintSpace();
+
+            Console.WriteLine("--Summary Report--");
+            foreach (string s in TransformProducts(catalog, p => $"{p.Name} (${p.Price})"))
+                Console.WriteLine(s);
+            
+            PrintSpace();
+
+            Console.WriteLine("--Price labels--");
+            foreach (string s in TransformProducts(catalog, p => $"{p.Name}: {(p.Price > 100 ? "Expensive!" : "Affordable")}"))
+                Console.WriteLine(s);
         }
     }
 }
