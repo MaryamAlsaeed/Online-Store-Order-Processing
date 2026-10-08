@@ -2,6 +2,20 @@
 {
     internal class Program
     {
+        #region Searchproduct method
+        static List<Product> SearchProducts(List<Product> products, Func<Product, bool> filter)
+        {
+            List<Product> result = new();
+            foreach (Product product in products)
+            {
+                if (filter(product))
+                    result.Add(product);
+
+            }
+            return result;
+        }
+        #endregion
+
         static void Main(string[] args)
         {
             #region Product Catalog
